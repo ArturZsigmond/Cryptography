@@ -4,13 +4,18 @@
 a = int(input("first number: ").strip())
 b = int(input("second number: ").strip())
 
-if a < b:
-    while b % a !=0:
-        a -= 1
-    
-    print("gcd is", a)
-else:
-    while a % b !=0:
-        b -= 1
-    
-    print("gcd is", b)
+def gcd_basic(a, b):
+    a, b = abs(a), abs(b)
+    if a == 0: return b
+    if b == 0: return a
+    if a == b: return a
+    if a > b and a % b == 0: return b
+    if b > a and b % a == 0: return a
+
+    d = min(a, b)
+    while d > 1 and ((a % d != 0) or (b % d != 0)):
+        d -= 1
+    return d
+
+
+print("gcd is", gcd_basic(a, b))
