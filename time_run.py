@@ -1,11 +1,10 @@
 import time
 import statistics as stats
 import math
-
-# ---------- your algorithms ----------
+# fast version of Euclid's algorithm
 def gcd_euclid_fast(a, b):
     return a if b == 0 else gcd_euclid_fast(b, a % b)
-
+# robust but slow version of Euclid's algorithm
 def gcd_euclid_slow(a, b):
     if a == 0:
         return b
@@ -20,7 +19,7 @@ def gcd_euclid_slow(a, b):
     if b % a == 0:
         return a
     return gcd_euclid_slow(a, b - a)
-
+# very basic version (trial division from min(a,b) down to 1)
 def gcd_basic(a, b):
     a, b = abs(a), abs(b)
     if a == 0: return b
@@ -41,7 +40,7 @@ ALGORITHMS = [
     ("basic",       gcd_basic),
 ]
 
-# ---------- easy inputs (all ≤ 1_000_000) ----------
+
 def make_inputs():
     # chosen to keep gcds reasonably large (so gcd_basic isn’t painfully slow)
     inputs = [
@@ -54,9 +53,9 @@ def make_inputs():
         (999_000, 666_000), # 333_000
         (720_720, 27_720),  # 27_720
         (882_000, 378_000), # 126_000
-        (999_936, 124_992), # 124_992 (exact multiple)
-        (599_946, 899_919), # 299_973  (both multiples of 99_991)
-        (456_789, 123_456), # 3  (a “harder” but still manageable case)
+        (999_936, 124_992), # 124_992 
+        (599_946, 899_919), # 299_973  
+        (456_789, 123_456), # 3  
     ]
     # sanitize to be ≥ 1 for gcd_basic
     inputs = [(max(1, a), max(1, b)) for a, b in inputs]
