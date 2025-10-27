@@ -1,5 +1,3 @@
-# simple Python basics demo: input, lists, operations, loops, functions, dicts
-
 def read_str(prompt):
     return input(prompt).strip()
 
