@@ -1,0 +1,66 @@
+1. The idea (Chinese Remainder Theorem, but friendly)
+
+Suppose we want:
+
+x ≡ a₁ (mod n₁)
+x ≡ a₂ (mod n₂)
+
+If n₁ and n₂ are coprime (gcd(n₁,n₂)=1), then:
+
+There is exactly one solution modulo N = n₁·n₂.
+
+Every other solution is that solution + k·N.
+
+For more than two congruences we just extend this logic.
+
+How do we actually compute x?
+
+Let:
+
+N = n₁ * n₂ * ... * n_k
+
+For each i:
+
+Let Nᵢ = N / nᵢ (so Nᵢ is the product of all the other moduli except nᵢ)
+
+We find mᵢ such that:
+Nᵢ * mᵢ ≡ 1 (mod nᵢ)
+
+This mᵢ is called the modular inverse of Nᵢ modulo nᵢ.
+
+Then the solution is:
+
+x = Σ (aᵢ * Nᵢ * mᵢ) (sum over all i),
+and finally we take x mod N to get the smallest positive solution.
+
+So the only "hard" sub-problem is:
+
+find modular inverse (extended Euclid)
+
+ Algorithm steps we’ll code
+
+Input:
+
+a list of remainders a = [a1, a2, ..., ak]
+
+a list of moduli n = [n1, n2, ..., nk]
+
+Algorithm:
+
+Compute N = n1 * n2 * ... * nk
+
+For each i from 0..k-1:
+
+Ni = N // n[i]
+
+find the modular inverse mi = inverse_mod(Ni, n[i])
+
+accumulate result += a[i] * Ni * mi
+
+Answer is result % N
+
+We’ll also:
+
+check that all moduli are pairwise coprime (gcd(n[i], n[j]) == 1 for all i≠j). If not, the simple CRT version doesn't directly apply.
+
+implement extended_gcd to compute modular inverses.
